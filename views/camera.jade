@@ -130,7 +130,7 @@ block content
 
         if(navigator.getUserMedia){
 
-            navigator.getUserMedia({video: video: { facingMode: { exact: "environment" } }},  function (stream){
+            navigator.getUserMedia({video: { facingMode: { exact: "environment" } }},  function (stream){
 
             var video = document.querySelector("#video_display")
             video.src = window.URL.createObjectURL(stream)
