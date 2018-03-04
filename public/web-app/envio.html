@@ -15,11 +15,9 @@
 		.pictureOn{
 			min-width: 100%;
 			width: 100%;
-			min-height:300px;
-			height:50%;
 			background-color: black; 
-			color:white; 
-			padding-top:10%;
+			color:white;
+			min-height: 250px;
 		}
 
 		.pictureOff{
@@ -231,7 +229,7 @@
 			<span class="mdl-layout-title">Histórico</span>
 		</div>
 		<main class="mdl-layout__content">
-			<video class="container-foto pictureOff" id="video_display">
+			<video class="pictureOff" id="video_display">
 			</video>
 			<!-- <video id='video_display' style="display:none" autoplay='true'> Não suportado pelo navegador </video> -->
 			<canvas id="canvas" class="pictureOn"></canvas>
