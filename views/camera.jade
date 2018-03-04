@@ -40,7 +40,21 @@ block content
             document.querySelector('#base_64_image').innerText = uri
         }
 
-        
+        function recordVoice(idAudio){
+
+            var player = document.getElementById(idAudio);
+
+            var handleSuccess = function(stream) {
+                if (window.URL) {
+                player.src = window.URL.createObjectURL(stream);
+                } else {
+                player.src = stream;
+                }
+            };
+
+            navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(handleSuccess)
+
+        }
 
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia
 
@@ -65,15 +79,13 @@ block content
 
         })
 
-        $('#recorder').change(function(e){
+        $('#btn_record').click(function(e){
+            e.preventDefault()
 
-            var player = document.getElementById('player')
+            recordVoice('player')
 
-            var file = e.target.files[0]
-
-            player.src =  window.URL.createObjectURL(file)
-            
         })
+        
 
         //- $('#frm_upload_doc').submit(function(e){
 
@@ -129,5 +141,6 @@ block content
     br
     div(id='base_64_image')
     br
-    input(type="file" accept="audio/*" capture="microphone" id="recorder")
+    //- input(type="file" accept="audio/*" capture="microphone" id="recorder")
+    input(type='button' id='btn_record' value='Gravar voz')
     audio(id="player" controls)
