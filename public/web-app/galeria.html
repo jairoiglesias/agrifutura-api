@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+        <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="chat.css">
+  </head>
+  <style>
+</style>
+<body>
+    <!-- Simple header with fixed tabs. -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+                    mdl-layout--fixed-tabs">
+              <header class="mdl-layout__header" style="background-color:#019AE8;">
+                <div class="mdl-layout__header-row">
+                  <!-- Title -->
+                  <span class="mdl-layout-title">Galeria</span>
+                  <img src="img/logo.png" width="8%;" style="margin-left: 70%;">
+                </div>
+                <!-- Tabs -->
+                <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="background-color:#019AE8;">
+                  <a href="home.html" class="mdl-layout__tab">Menu</a>
+                  <a href="galeria.html" class="mdl-layout__tab is-active">Galeria</a>
+                  <a href="historico.html" class="mdl-layout__tab">Histórico</a>
+                </div>
+              </header>
+              <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title"><a href="home.html">Menu</a></span>
+                <span class="mdl-layout-title"><a href="galeria.html">Galeria</a></span>
+                <span class="mdl-layout-title"><a href="historico.html">Histórico</a></span>
+              </div>  
+            <main class="mdl-layout__content">
+            </div>
+            <center>
+            <br><br>
+            <div class="demo-card-square mdl-card mdl-shadow--2dp" style="width: 90%; height: 30%; margin-top: 30%;">
+              <div class="mdl-card__title mdl-card" style="float: left !important; background:url('img/tomates.jpg');">
+              </div>
+              <div class="mdl-card__supporting-text">
+                Tomates do Ian
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                        <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Informações sobre o agricultor
+                  </button>
+              </div>
+            </div>
+            <br>
+            <div class="demo-card-square mdl-card mdl-shadow--2dp" style="width: 90%; height: 30%;">
+              <div class="mdl-card__title mdl-card" style="float: left !important; background:url('img/tomates.jpg');">
+              </div>
+              <div class="mdl-card__supporting-text">
+                Tomates
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                  Detalhes
+                </a>
+              </div>
+            </div>
+            </div>
+            
+         </div>
+        </div>
+        </center>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Tomates - Ian Gonçalvez</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Olá, meu nome é Ian e realizo o plantio e venda de Tomates. Me esforço muito no meu trabalho
+                e faço com todo o meu amor. 
+                Me ligue para saber mais
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary"><a href="chat_comprador.html" style="color: white;">Chamar</a></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>            
+</body>
+</html>
