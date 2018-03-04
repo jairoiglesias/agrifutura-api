@@ -9,6 +9,9 @@ module.exports = function(app) {
     res.render('camera')
   })
 
+  app.get('/dashboard', (req, res) => {
+    res.render('dashboard')
+  })
 
   app.post('/upload', (req, res) => {
     
