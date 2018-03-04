@@ -44,6 +44,8 @@ block content
 
             var player = document.getElementById(idAudio);
 
+            console.log(player)
+
             var handleSuccess = function(stream) {
                 if (window.URL) {
                 player.src = window.URL.createObjectURL(stream);
@@ -56,20 +58,79 @@ block content
 
         }
 
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia
+        function initVoiceRecorder(){
 
-        if(navigator.getUserMedia){
+            let shouldStop = false;
+            let stopped = false;
+            const downloadLink = document.getElementById('download');
+            const stopButton = document.getElementById('stop');
 
-            navigator.getUserMedia({video: true},  function (stream){
-
-            var video = document.querySelector("#video_display")
-            video.src = window.URL.createObjectURL(stream)
-
-            },  function (err){
-                alertify.error('Erro ao recuperar Stream da Webcam')
+            stopButton.addEventListener('click', function() {
+                shouldStop = true;
             })
 
+            var handleSuccess = function(stream) {  
+
+                const options = {mimeType: 'video/webm;codecs=vp9'};
+                const recordedChunks = [];
+                const mediaRecorder = new MediaRecorder(stream);  
+
+
+                mediaRecorder.ondataavailable = function(e) {
+
+                    console.log('receiving data ...')
+                    if (e.data.size > 0) {
+                        recordedChunks.push(e.data);
+                    }
+
+                    if(shouldStop === true && stopped === false) {
+                        console.log('Stop!')
+                        mediaRecorder.stop();
+                        stopped = true;
+                    }
+                }
+
+                mediaRecorder.onerror = function(e){
+                    console.log('Error: ' + e);
+                };
+
+                mediaRecorder.onstart = function(){
+                    console.log('Started, state = ' + mediaRecorder.state);
+                };
+                
+                mediaRecorder.onwarning = function(e){
+                    console.log('Warning: ' + e);
+                };
+
+                mediaRecorder.onstop = function() {
+                    console.log('stop')
+                    downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
+                    downloadLink.download = 'acetest.wav';
+                }
+
+                mediaRecorder.start(10);
+
+                //- console.log(mediaRecorder)
+
+            };
+
+             navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(handleSuccess)
         }
+
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia
+
+        //- if(navigator.getUserMedia){
+
+        //-     navigator.getUserMedia({video: true},  function (stream){
+
+        //-     var video = document.querySelector("#video_display")
+        //-     video.src = window.URL.createObjectURL(stream)
+
+        //-     },  function (err){
+        //-         alertify.error('Erro ao recuperar Stream da Webcam')
+        //-     })
+
+        //- }
 
         $('#btn_take_image').click(function(e){
 
@@ -80,12 +141,21 @@ block content
         })
 
         $('#btn_record').click(function(e){
+
             e.preventDefault()
 
             recordVoice('player')
 
         })
-        
+
+        $('#btn_record_v2').click(function(e){
+
+            e.preventDefault()
+
+            initVoiceRecorder()
+
+        })
+
 
         //- $('#frm_upload_doc').submit(function(e){
 
@@ -142,5 +212,10 @@ block content
     div(id='base_64_image')
     br
     //- input(type="file" accept="audio/*" capture="microphone" id="recorder")
-    input(type='button' id='btn_record' value='Gravar voz')
+    input(type='button' id='btn_record' value='Gravar voz (Versao 1)')
     audio(id="player" controls)
+    hr
+    input(type='button' id='btn_record_v2' value='Gravar voz (Versao 2)')
+    button(id="stop") Stop
+    br
+    a(id="download") Download Audio
