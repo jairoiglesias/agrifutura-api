@@ -44,7 +44,6 @@ block content
 
             var player = document.getElementById(idAudio);
 
-            console.log(player)
 
             var handleSuccess = function(stream) {
                 if (window.URL) {
@@ -52,6 +51,8 @@ block content
                 } else {
                 player.src = stream;
                 }
+
+                player.play()
             };
 
             navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(handleSuccess)
@@ -106,6 +107,14 @@ block content
                     console.log('stop')
                     downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
                     downloadLink.download = 'acetest.wav';
+
+                    if (window.URL) {
+                        player.src = window.URL.createObjectURL(new Blob(recordedChunks));
+                    } else {
+                        player.src = new Blob(recordedChunks);
+                    }
+
+                    //- player.play()
                 }
 
                 mediaRecorder.start(10);
