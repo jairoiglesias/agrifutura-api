@@ -5,6 +5,10 @@ module.exports = function(app) {
   var multer  = require('multer')
   var upload = multer({ dest: 'uploads/' })
 
+  app.get('/', (req, res) => {
+    res.render('camera')
+  })
+
 
   app.post('/upload', (req, res) => {
     

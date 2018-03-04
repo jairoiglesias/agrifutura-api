@@ -1,0 +1,133 @@
+extends header
+
+block content
+
+  style(type="text/css").
+
+    #video_display{
+        float:left;
+        width:48%;
+    }
+
+    #canvas {
+        margin-left:10px;
+        width: 48%;
+        height: 375px;
+        background-color: #CCC;
+        border: 10px #333 solid;
+        float:right;
+    }
+
+    #base_64_image{
+        width: 150px;
+    }
+
+  
+  script(type="text/javascript").
+  
+    $(document).ready(function(){
+
+        function snapshot(idCanvas, idVideo){
+
+            var canvas = document.querySelector(idCanvas)
+            var video = document.querySelector(idVideo)
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+
+            var uri = canvas.toDataURL("image/jpeg");
+            document.querySelector('#base_64_image').innerText = uri
+        }
+
+        
+
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia
+
+        if(navigator.getUserMedia){
+
+            navigator.getUserMedia({video: true},  function (stream){
+
+            var video = document.querySelector("#video_display")
+            video.src = window.URL.createObjectURL(stream)
+
+            },  function (err){
+                alertify.error('Erro ao recuperar Stream da Webcam')
+            })
+
+        }
+
+        $('#btn_take_image').click(function(e){
+
+            e.preventDefault()
+
+            snapshot('#canvas', '#video_display')
+
+        })
+
+        $('#recorder').change(function(e){
+
+            var player = document.getElementById('player')
+
+            var file = e.target.files[0]
+
+            player.src =  window.URL.createObjectURL(file)
+            
+        })
+
+        //- $('#frm_upload_doc').submit(function(e){
+
+        //-     e.preventDefault()
+
+        //-     // Recupera os arquivos do input file
+        //-     var file = $('#file_doc')[0].files[0]
+
+        //-     if(file == undefined){
+        //-         alertify.error('Selecione um arquivo JPEG/TIFF')
+        //-     }
+        //-     else{
+
+        //-         alertify.success('Iniciando processamento OCR', 10)
+
+        //-         // Monta um objeto FormData com os arquivos
+        //-         var formData = new FormData();
+        //-         formData.append('file_doc', file);
+
+        //-         $('#ocr_result').text('Processando OCR ...')
+                
+        //-         // Envia ajax para processar o upload
+        //-         var promise = $.ajax({
+        //-             url: 'upload_doc',
+        //-             type: 'POST',
+        //-             data: formData,
+        //-             contentType: false,
+        //-             enctype: 'multipart/form-data',
+        //-             processData: false
+        //-         })
+                
+        //-         promise.then(function (response) {
+                        
+        //-             $('#ocr_result').text(response)
+
+        //-         })
+
+        //-     }
+
+        //- })
+      
+    })  
+
+    
+  div(class='container')
+    h2 Web Html 5 Camera / Audio
+    hr
+    video(id='video_display' autoplay='true') Não suportado pelo navegador
+    canvas(id="canvas" width="500" height="375")
+    div(style="clear:both")
+    br
+    input(type='button' id='btn_take_image' value="Obter Imagem")
+    br
+    div(id='base_64_image')
+    br
+    input(type="file" accept="audio/*" capture="microphone" id="recorder")
+    audio(id="player" controls)
