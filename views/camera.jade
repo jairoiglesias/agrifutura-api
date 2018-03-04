@@ -68,6 +68,7 @@ block content
 
             stopButton.addEventListener('click', function() {
                 shouldStop = true;
+                $('#btn_record_v2').val('Gravar voz (Versao 2)')
             })
 
             var handleSuccess = function(stream) {  
@@ -104,7 +105,8 @@ block content
                 };
 
                 mediaRecorder.onstop = function() {
-                    console.log('stop')
+
+                    console.log('Voice Recorder Stoped')
                     downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
                     downloadLink.download = 'acetest.wav';
 
@@ -117,9 +119,7 @@ block content
                     //- player.play()
                 }
 
-                mediaRecorder.start(10);
-
-                //- console.log(mediaRecorder)
+                mediaRecorder.start(10)
 
             };
 
@@ -128,18 +128,18 @@ block content
 
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia
 
-        //- if(navigator.getUserMedia){
+        if(navigator.getUserMedia){
 
-        //-     navigator.getUserMedia({video: true},  function (stream){
+            navigator.getUserMedia({video: true},  function (stream){
 
-        //-     var video = document.querySelector("#video_display")
-        //-     video.src = window.URL.createObjectURL(stream)
+            var video = document.querySelector("#video_display")
+            video.src = window.URL.createObjectURL(stream)
 
-        //-     },  function (err){
-        //-         alertify.error('Erro ao recuperar Stream da Webcam')
-        //-     })
+            },  function (err){
+                alertify.error('Erro ao recuperar Stream da Webcam')
+            })
 
-        //- }
+        }
 
         $('#btn_take_image').click(function(e){
 
@@ -162,7 +162,9 @@ block content
             e.preventDefault()
 
             initVoiceRecorder()
-
+            
+            $(this).val('Gravando ...')
+            
         })
 
 
@@ -221,10 +223,10 @@ block content
     div(id='base_64_image')
     br
     //- input(type="file" accept="audio/*" capture="microphone" id="recorder")
-    input(type='button' id='btn_record' value='Gravar voz (Versao 1)')
-    audio(id="player" controls)
+    //- input(type='button' id='btn_record' value='Gravar voz (Versao 1)')
     hr
     input(type='button' id='btn_record_v2' value='Gravar voz (Versao 2)')
     button(id="stop") Stop
     br
+    audio(id="player" controls)
     a(id="download") Download Audio
